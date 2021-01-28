@@ -1,0 +1,97 @@
+@import "bootstrap";
+
+body {
+  background-color: #EEE;
+  overflow-y: hidden;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+}
+
+.login {
+  background-color: #EEE;
+}
+
+.chat-room {
+  height: 100vh;
+
+  #messages {
+    height: 100%;
+    overflow-y: scroll;
+    padding-bottom: 200px;
+    padding-top: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .message {
+    min-height: 59px;
+    .content-container {
+      display: inline-block;
+      .content {
+        background-color: #DDD;
+        padding: 8px 16px;
+        border-radius: 20px;
+      }
+      .author {
+        font-size: 0.8rem;
+        color: #777;
+        margin-left: 10px;
+      }
+    }
+    &.me {
+      .content-container {
+        float: right;
+        .content {
+          background-color: #212529;
+          color: #FFF;
+        }
+      }
+    }
+  }
+  .chat-box {
+    position: absolute;
+    bottom: -10px;
+    padding: 20px;
+    width: 73%;
+    background-color: #EEE;
+    input[type=text] {
+      height: 45px;
+      font-size: 18px;
+      padding: 8px;
+    }
+    .btn {
+      height: 45px;
+    }
+  }
+}
+
+.room-link {
+  text-decoration: none;
+  .room-card {
+    transition: background-color 0.5s ease;
+    border-radius: 20px;
+    text-transform: capitalize;
+    &:hover {
+      background-color: #EEE;
+    }
+    &.active {
+      background-color: #212529;
+      .name {
+        color: #FFF;
+      }
+      .member-count {
+        color: #E0E0E0;
+      }
+    }
+    .name {
+      font-weight: bold;
+      color: #000;
+    }
+    .member-count {
+      color: #777;
+      font-weight: light;
+    }
+  }
+}
