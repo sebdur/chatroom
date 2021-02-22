@@ -1,48 +1,38 @@
 <div id="room-id" data-room-id="<%= @room.try(:id) %>"></div>
 <div id="user-id" data-user-id="<%= current_user.id %>"></div>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-3 border-end">
-      <div class="card border-0">
-        <div class="card-body login">
-          <small>Logged in as</small><br>
-          <b><%= current_user.username %></b>
-        </div>
+<div class="row g-0">
+  <div class="col-3 sidebar">
+    <%= render 'form', room: Room.new %>
+    <hr>
+    <% @rooms.each do |room| %>
+    <%= link_to room, class: "room-link" do %>
+    <% active_class = (@room == room) ? 'active' : '' %>
+    <div class="card border-0 mb-2 room-card <%= active_class %>">
+      <div class="card-body">
+        <span class="name"><%= room.name %></span><br>
+        <span class="member-count"><small><%= room.users.uniq.count %> Members</small></span>
       </div>
-      <hr>
-      <%= render 'form', room: Room.new %>
-      <hr>
-      <% @rooms.each do |room| %>
-      <%= link_to room, class: "room-link" do %>
-      <% active_class = (@room == room) ? 'active' : '' %>
-      <div class="card border-0 mb-2 room-card <%= active_class %>">
-        <div class="card-body">
-          <span class="name"><%= room.name %></span><br>
-          <span class="member-count"><small><%= room.users.uniq.count %> Members</small></span>
-        </div>
-      </div>
-      <% end %>
-      <% end %>
     </div>
-    <div class="col-9">
-      <% if @room.present? %>
-      <div class="chat-room">
-        <nav class="navbar navbar-light border-bottom">
-          <div class="container-fluid">
-            <span class="navbar-brand fw-bold" href="#"><%= @room.name %></span>
-          </div>
-        </nav>
-        <div id="messages">
-          <% @room.messages.each do |message| %>
-          <%= render 'messages/message', message: message %>
-          <% end %>
-        </div>
-        <div class="chat-box border-top">
-          <%= render 'messages/form', message: Message.new, room: @room %>
-        </div>
+    <% end %>
+    <% end %>
+  </div>
+  <div class="col-9">
+    <% if @room.present? %>
+    <div class="chat-room">
+      <nav class="navbar">
+        <span><%= @room.name %></span>
+        <div>Logged in as<br><b><%= current_user.username %></b></div>
+      </nav>
+      <div id="messages">
+        <% @room.messages.order("id DESC").each do |message| %>
+        <%= render 'messages/message', message: message %>
+        <% end %>
       </div>
-      <% end %>
+      <div class="chat-box">
+        <%= render 'messages/form', message: Message.new, room: @room %>
+      </div>
     </div>
+    <% end %>
   </div>
 </div>

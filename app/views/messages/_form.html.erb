@@ -13,7 +13,7 @@
   <%= form.hidden_field :room_id, value: room.id %>
 
   <div class="input-group">
-    <%= form.text_field :content, placeholder:"Type your message here...", class:"form-control border-dark shadow-none" %>
-    <%= form.submit "Add Message", id: "chat-btn", class: "btn btn-dark" %>
+    <%= form.text_field :content, placeholder:"Type your message here...", class:"form-control border-dark shadow-none rounded-pill" %>
+    <%= form.submit "Send", id: "chat-btn", class: "btn btn-dark rounded-pill mx-1 px-5" %>
   </div>
 <% end %>
