@@ -24,7 +24,7 @@ body {
   background: #FFF;
 
   nav {
-    background: #DDD;
+    background: #999;
     height: 10vh;
     span {
       text-transform: capitalize;
@@ -43,7 +43,7 @@ body {
     overflow-y: scroll;
     padding: 0.5rem 1rem;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
 
   .message {
@@ -82,7 +82,7 @@ body {
   .chat-box {
     height: 10vh;
     padding: 1rem;
-    background-color: #DDD;
+    background-color: #999;
     input[type=text] {
       font-size: 18px;
     }

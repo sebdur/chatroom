@@ -1,38 +1,40 @@
 <div id="room-id" data-room-id="<%= @room.try(:id) %>"></div>
 <div id="user-id" data-user-id="<%= current_user.id %>"></div>
 
-<div class="row g-0">
-  <div class="col-3 sidebar">
-    <%= render 'form', room: Room.new %>
-    <hr>
-    <% @rooms.each do |room| %>
-    <%= link_to room, class: "room-link" do %>
-    <% active_class = (@room == room) ? 'active' : '' %>
-    <div class="card border-0 mb-2 room-card <%= active_class %>">
-      <div class="card-body">
-        <span class="name"><%= room.name %></span><br>
-        <span class="member-count"><small><%= room.users.uniq.count %> Members</small></span>
+<div class="container">
+  <div class="row g-0">
+    <div class="col-3 sidebar">
+      <%= render 'form', room: Room.new %>
+      <hr>
+      <% @rooms.each do |room| %>
+      <%= link_to room, class: "room-link" do %>
+      <% active_class = (@room == room) ? 'active' : '' %>
+      <div class="card border-0 mb-2 room-card <%= active_class %>">
+        <div class="card-body">
+          <span class="name"><%= room.name %></span><br>
+          <span class="member-count"><small><%= room.users.uniq.count %> Members</small></span>
+        </div>
       </div>
+      <% end %>
+      <% end %>
     </div>
-    <% end %>
-    <% end %>
-  </div>
-  <div class="col-9">
-    <% if @room.present? %>
-    <div class="chat-room">
-      <nav class="navbar">
-        <span><%= @room.name %></span>
-        <div>Logged in as<br><b><%= current_user.username %></b></div>
-      </nav>
-      <div id="messages">
-        <% @room.messages.order("id DESC").each do |message| %>
-        <%= render 'messages/message', message: message %>
-        <% end %>
+    <div class="col-9" style="background:#fff;">
+      <% if @room.present? %>
+      <div class="chat-room">
+        <nav class="navbar">
+          <span><%= @room.name %></span>
+          <div>Logged in as<br><b><%= current_user.username %></b></div>
+        </nav>
+        <div id="messages">
+          <% @room.messages.each do |message| %>
+          <%= render 'messages/message', message: message %>
+          <% end %>
+        </div>
+        <div class="chat-box">
+          <%= render 'messages/form', message: Message.new, room: @room %>
+        </div>
       </div>
-      <div class="chat-box">
-        <%= render 'messages/form', message: Message.new, room: @room %>
-      </div>
+      <% end %>
     </div>
-    <% end %>
   </div>
 </div>
